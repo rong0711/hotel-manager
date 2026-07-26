@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>新增入住记录</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft Yahei", sans-serif;
+    }
+    body {
+      width: 520px;
+      margin: 50px auto;
+      background-color: #f5f7fa;
+    }
+    .box {
+      background: #fff;
+      padding: 35px;
+      border-radius: 10px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: #2d3748;
+      font-size: 24px;
+    }
+    .btn-back-home {
+      padding: 8px 16px;
+      background: #909399;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .btn-back-home:hover {
+      background: #a6a9ad;
+    }
+    .item {
+      margin-bottom: 22px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #4e5969;
+      font-size: 15px;
+    }
+    input, select {
+      width: 100%;
+      height: 42px;
+      padding: 0 14px;
+      border: 1px solid #dcdfe6;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #409eff;
+    }
+    .btn-group {
+      margin-top: 30px;
+      display: flex;
+      gap: 12px;
+    }
+    .save-btn {
+      flex: 1;
+      height: 44px;
+      background: #00b42a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .save-btn:hover {
+      background: #36d35c;
+    }
+    .back-list-btn {
+      flex: 1;
+      height: 44px;
+      background: #909399;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .back-list-btn:hover {
+      background: #a6a9ad;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <div class="header-row">
+    <h2>➕ 新增入住记录</h2>
+    <a th:href="@{/}" class="btn-back-home">返回首页</a>
+  </div>
+  <form th:action="@{/checkinRecord/add}" method="get">
+    <!-- 房型下拉，切换自动刷新页面 -->
+    <div class="item">
+      <label>选择房型</label>
+      <select name="selectedTypeId" onchange="this.form.submit()" required>
+        <option value="" th:selected="${selectedTypeId == null}">请先选择房型</option>
+        <option th:each="t : ${typeList}"
+                th:value="${t.id}"
+                th:text="${t.typeName}"
+                th:selected="${t.id == selectedTypeId}">
+        </option>
+      </select>
+    </div>
+  </form>
+
+  <!-- 提交入住表单 -->
+  <form th:action="@{/checkinRecord/save}" method="get">
+    <!-- 隐藏域传递选中房型 -->
+    <input type="hidden" name="selectedTypeId" th:value="${selectedTypeId}">
+
+    <div class="item">
+      <label>房间号</label>
+      <select name="roomId" required>
+        <option value="">请选择空闲房间</option>
+        <!-- Thymeleaf后端过滤：同房型+空闲status=0 -->
+        <option th:each="r : ${allRoomList}"
+                th:if="${r.typeId == selectedTypeId && r.status == 0}"
+                th:value="${r.id}"
+                th:text="${r.roomNum}">
+        </option>
+      </select>
+    </div>
+
+    <div class="item">
+      <label>选择客户</label>
+      <select name="customerId" required>
+        <option value="">请选择客户</option>
+        <option th:each="c : ${customerList}" th:value="${c.id}" th:text="${c.name}"></option>
+      </select>
+    </div>
+
+    <div class="item">
+      <label>消费总金额</label>
+      <input type="number" step="0.01" name="totalMoney" placeholder="输入金额" required>
+    </div>
+
+    <div class="btn-group">
+      <button class="save-btn" type="submit">保存入住记录</button>
+      <a th:href="@{/checkinRecord/list}">
+        <button class="back-list-btn" type="button">返回列表</button>
+      </a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

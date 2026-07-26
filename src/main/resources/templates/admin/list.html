@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>管理员管理</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+    body {
+      background-color: #f5f7fa;
+      padding: 30px;
+    }
+    .container {
+      width: 90%;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 25px;
+    }
+    h2 {
+      color: #2d3748;
+      margin-bottom: 20px;
+      border-left: 4px solid #007bff;
+      padding-left: 12px;
+    }
+    .back-home {
+      display: inline-block;
+      background: #6c757d;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+    .back-home:hover {
+      background: #5a6268;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th {
+      background-color: #2d3748;
+      color: white;
+      padding: 12px 10px;
+      text-align: center;
+      font-weight: normal;
+    }
+    td {
+      padding: 12px 10px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    tr:hover {
+      background-color: #eef6ff;
+    }
+    .page-bar {
+      margin-top: 24px;
+      text-align: center;
+    }
+    .page-bar a {
+      display: inline-block;
+      padding: 6px 14px;
+      margin: 0 4px;
+      border: 1px solid #007bff;
+      border-radius: 4px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .page-bar a:hover {
+      background: #007bff;
+      color: white;
+    }
+    .page-bar span {
+      margin: 0 10px;
+      color: #4a5568;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>管理员账号管理</h2>
+  <a href="/index.html" class="back-home">← 返回系统首页</a>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>登录账号</th>
+      <th>姓名</th>
+      <th>联系电话</th>
+      <th>创建时间</th>
+    </tr>
+    <tr th:each="item : ${pageData.list}">
+      <td>[[${item.id}]]</td>
+      <td>[[${item.username}]]</td>
+      <td>[[${item.name}]]</td>
+      <td>[[${item.phone}]]</td>
+      <td>[[${item.createTime}]]</td>
+    </tr>
+  </table>
+
+  <div class="page-bar">
+    <a th:if="${pageData.pageNum > 1}" th:href="@{/admin/list(pageNum=${pageData.pageNum - 1})}">上一页</a>
+    <span>第 [[${pageData.pageNum}]] / [[${pageData.pages}]] 页</span>
+    <a th:if="${pageData.pageNum < pageData.pages}" th:href="@{/admin/list(pageNum=${pageData.pageNum + 1})}">下一页</a>
+  </div>
+</div>
+</body>
+</html>

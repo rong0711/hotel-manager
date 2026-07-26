@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>新增房型</title>
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei"}
+    body {background:#f5f7fa;padding:30px}
+    .container {width:60%;margin:0 auto;background:#fff;border-radius:12px;padding:25px;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    h2 {color:#2d3748;margin-bottom:20px;border-left:4px solid #007bff;padding-left:12px}
+    .item {margin-bottom:15px}
+    label {display:block;margin-bottom:6px;color:#333}
+    input {width:100%;padding:10px;border:1px solid #ddd;border-radius:6px}
+    button {padding:10px 24px;background:#007bff;color:#fff;border:none;border-radius:6px;cursor:pointer}
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>新增房型</h2>
+  <form th:action="@{/roomType/add}" method="post">
+    <div class="item">
+      <label>房型名称</label>
+      <input type="text" name="typeName" required>
+    </div>
+    <div class="item">
+      <label>单价</label>
+      <input type="number" step="0.01" name="price" required>
+    </div>
+    <div class="item">
+      <label>床位数</label>
+      <input type="number" name="bedNum" required>
+    </div>
+    <button type="submit">提交保存</button>
+  </form>
+</div>
+</body>
+</html>

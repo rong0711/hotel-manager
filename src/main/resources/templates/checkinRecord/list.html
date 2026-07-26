@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>入住记录列表</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft Yahei", sans-serif;
+    }
+    body {
+      width: 92%;
+      margin: 35px auto;
+      background-color: #f5f7fa;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #2d3748;
+    }
+    .btn-add {
+      padding: 9px 18px;
+      background: #409eff;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+    .btn-home {
+      padding: 9px 18px;
+      background: #909399;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+    }
+    th, td {
+      padding: 13px 16px;
+      text-align: center;
+    }
+    th {
+      background: #409eff;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    tr:hover {
+      background: #eef5ff;
+    }
+    .edit {
+      color: #409eff;
+      text-decoration: none;
+      margin-right: 8px;
+    }
+    .del {
+      color: #f56c6c;
+      text-decoration: none;
+      margin-right: 8px;
+    }
+    .checkout {
+      color: #00b42a;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<div class="top-bar">
+  <h2>入住记录列表</h2>
+  <div>
+    <a th:href="@{/checkinRecord/add}" class="btn-add">新增入住</a>
+    <a th:href="@{/}" class="btn-home">返回首页</a>
+  </div>
+</div>
+<table>
+  <tr>
+    <th>记录ID</th>
+    <th>房间号</th>
+    <th>客户姓名</th>
+    <th>入住时间</th>
+    <th>退房时间</th>
+    <th>消费金额</th>
+    <th>状态</th>
+    <th>操作</th>
+  </tr>
+  <tr th:each="r : ${recordList}">
+    <td th:text="${r.id}"></td>
+    <!-- 修复：循环roomList匹配ID取房间号，不再直接r.roomNum -->
+    <td>
+      <span th:each="room : ${roomList}" th:if="${room.id == r.roomId}" th:text="${room.roomNum}"></span>
+    </td>
+    <td>
+      <span th:each="c : ${customerList}" th:if="${c.id == r.customerId}" th:text="${c.name}"></span>
+    </td>
+    <td th:text="${r.checkinTime}"></td>
+    <td th:text="${r.checkoutTime == null ? '未退房' : r.checkoutTime}"></td>
+    <td th:text="${r.totalMoney}"></td>
+    <td th:text="${r.status == 0 ? '入住中' : '已退房'}"></td>
+    <td>
+      <a th:href="@{/checkinRecord/edit(id=${r.id})}" class="edit">编辑</a>
+      <a th:href="@{/checkinRecord/delete(id=${r.id})}" class="del" onclick="return confirm('确定删除？')">删除</a>
+      <a th:if="${r.status == 0}" th:href="@{/checkinRecord/checkout(id=${r.id})}" class="checkout" onclick="return confirm('确认办理退房？')">退房</a>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotelmanage.mapper.CheckinRecordMapper">
+    <select id="selectRecordWithRoomAndCustomer" resultType="hotelmanage.entity.CheckinRecord">
+        SELECT
+            cr.id,
+            cr.room_id,
+            r.room_num,
+            cr.customer_id,
+            c.name AS customer_name,
+            cr.admin_id,
+            cr.checkin_time,
+            cr.checkout_time,
+            cr.total_money,
+            cr.status
+        FROM checkin_record cr
+                 LEFT JOIN room r ON cr.room_id = r.id
+                 LEFT JOIN customer c ON cr.customer_id = c.id
+        ORDER BY cr.id DESC
+    </select>
+</mapper>

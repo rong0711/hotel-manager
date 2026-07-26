@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>房型编辑</title>
+  <style>
+    .container { width: 600px; margin: 50px auto; }
+    .item { margin: 18px 0; }
+    label { display: inline-block; width: 110px; font-size: 15px; }
+    input { padding: 7px; width: 320px; font-size: 14px; }
+    button { padding: 8px 22px; margin: 0 8px; cursor: pointer; border: none; border-radius: 4px; }
+    .save { background: #409EFF; color: white; }
+    .back { background: #909399; color: white; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 align="center">房型信息编辑</h2>
+  <form th:action="@{/roomType/save}" method="get">
+    <!-- 主键隐藏域，安全取值 -->
+    <input type="hidden" name="id" th:value="${roomType?.id}">
+
+    <div class="item">
+      <label>房型名称：</label>
+      <input type="text" name="typeName" th:value="${roomType?.typeName}" placeholder="请输入房型名称">
+    </div>
+
+    <div class="item">
+      <label>单价：</label>
+      <input type="number" step="0.01" name="price" th:value="${roomType?.price}" placeholder="请输入价格">
+    </div>
+
+    <div class="item">
+      <label>床位数：</label>
+      <input type="number" name="bedNum" th:value="${roomType?.bedNum}" placeholder="请输入床位数">
+    </div>
+
+    <div class="item">
+      <label>备注：</label>
+      <input type="text" name="remark" th:value="${roomType?.remark}" placeholder="可选填写备注">
+    </div>
+
+    <div class="item" align="center">
+      <button class="save" type="submit">保存</button>
+      <a th:href="@{/roomType/list}"><button class="back" type="button">返回列表</button></a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

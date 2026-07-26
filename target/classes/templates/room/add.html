@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>新增房间</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft Yahei", sans-serif;
+    }
+    body {
+      width: 500px;
+      margin: 50px auto;
+      background-color: #f5f7fa;
+    }
+    .box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 1px 12px rgba(0,0,0,0.08);
+    }
+    h2 {
+      color: #2d3748;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #409eff;
+      text-decoration: none;
+    }
+    .item {
+      margin-bottom: 18px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #4e5969;
+    }
+    input,select {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    input:focus,select:focus {
+      outline: none;
+      border-color: #409eff;
+    }
+    button {
+      width: 100%;
+      height: 42px;
+      background: #409eff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #66b1ff;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <a th:href="@{/room/list}" class="back">← 返回列表</a>
+  <h2>新增房间</h2>
+  <form th:action="@{/room/save}" method="get">
+    <div class="item">
+      <label>房间号</label>
+      <input type="text" name="roomNum" required placeholder="请输入房间号，如1001">
+    </div>
+    <div class="item">
+      <label>选择房型</label>
+      <select name="typeId" required>
+        <option value="">请选择房型</option>
+        <option th:each="t : ${typeList}" th:value="${t.id}" th:text="${t.typeName}"></option>
+      </select>
+    </div>
+    <input type="hidden" name="status" value="0">
+    <button type="submit">提交新增</button>
+  </form>
+</div>
+</body>
+</html>

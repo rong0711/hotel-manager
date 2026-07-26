@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>酒店管理系统 - 首页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #f5f7fa;
+      font-family: "Microsoft Yahei", sans-serif;
+    }
+    .header {
+      background: #2374d9;
+      color: #fff;
+      padding: 20px 60px;
+      box-shadow: 0 2px 8px #ccc;
+    }
+    .header h1 {
+      font-size: 26px;
+      font-weight: normal;
+    }
+    .container {
+      width: 80%;
+      margin: 60px auto;
+      text-align: center;
+    }
+    .welcome-text {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 40px;
+    }
+    .menu-box {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .menu-item {
+      width: 180px;
+      height: 140px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #2374d9;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .menu-item:hover {
+      background: #2374d9;
+      color: white;
+      transform: translateY(-4px);
+    }
+    .logout-box {
+      margin-top: 50px;
+    }
+    .logout {
+      padding: 10px 28px;
+      background: #e53935;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .logout:hover {
+      background: #c62828;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <h1>酒店管理后台管理系统</h1>
+</div>
+
+<div class="container">
+  <div class="welcome-text">欢迎使用酒店管理系统，请选择功能模块</div>
+  <div class="menu-box">
+    <a href="/customer/list" class="menu-item">客户管理</a>
+    <a href="/roomType/list" class="menu-item">房型管理</a>
+    <a href="/room/list" class="menu-item">房间管理</a>
+    <a href="/checkinRecord/list" class="menu-item">入住记录</a>
+  </div>
+  <div class="logout-box">
+    <a href="/admin/logout" class="logout">退出登录</a>
+  </div>
+</div>
+</body>
+</html>

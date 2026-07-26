@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>房型管理</title>
+  <style>
+    table{border-collapse: collapse;width:800px;margin:20px auto;}
+    th,td{border:1px solid #ccc;padding:8px 15px;text-align:center;}
+    th{background:#333;color:#fff;}
+    .btn-box{width:800px;margin:30px auto;}
+    button{padding:8px 16px;margin:0 5px;cursor:pointer;border:none;border-radius:4px;}
+    .add{background:#409EFF;color:#fff;}
+    .back{background:#999;color:#fff;}
+    .edit{background:#67C23A;color:#fff;}
+    .del{background:#F56C6C;color:#fff;}
+  </style>
+</head>
+<body>
+<h2 align="center">房型管理</h2>
+<div class="btn-box">
+  <a th:href="@{/roomType/edit}"><button class="add">新增房型</button></a>
+  <a th:href="@{/index}"><button class="back">返回首页</button></a>
+</div>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>房型名称</th>
+    <th>单价</th>
+    <th>床位数</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- 循环遍历后端传入的list，item单条房型 -->
+  <tr th:each="item : ${list}">
+    <td th:text="${item.id}"></td>
+    <td th:text="${item.typeName}"></td>
+    <td th:text="${item.price}"></td>
+    <td th:text="${item.bedNum}"></td>
+    <td>
+      <a th:href="@{/roomType/edit(id=${item.id})}"><button class="edit">编辑</button></a>
+      <a th:href="@{/roomType/delete(id=${item.id})}" onclick="return confirm('确定删除？')">
+        <button class="del">删除</button>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
